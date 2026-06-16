@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario Glitch</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0a0f;
+            color: #00ff9c;
+            font-family: 'Courier New', monospace;
+            padding: 30px 20px;
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Capas de distorsión glitch */
+        body::before,
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 255, 255, 0.03);
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        body::after {
+            background: rgba(255, 0, 255, 0.02);
+            animation: glitch-shift 4s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-shift {
+            0% { transform: translate(2px, 0); }
+            25% { transform: translate(-2px, 1px); }
+            50% { transform: translate(1px, -1px); }
+            75% { transform: translate(-1px, 0); }
+            100% { transform: translate(2px, 1px); }
+        }
+
+        h1 {
+            font-size: 22px;
+            margin-bottom: 30px;
+            line-height: 1.4;
+            text-shadow: 0 0 2px #00ff9c, 0 0 5px #00ff9c;
+            animation: text-glitch 3s infinite;
+        }
+
+        @keyframes text-glitch {
+            0% { transform: translate(0); text-shadow: 1px 0 #ff00c8, -1px 0 #00fff9; }
+            20% { transform: translate(-1px, 1px); text-shadow: -1px 0 #ff00c8, 1px 0 #00fff9; }
+            40% { transform: translate(1px, -1px); text-shadow: 1px 0 #ff00c8, -1px 0 #00fff9; }
+            60% { transform: translate(-1px, 0); text-shadow: -1px 0 #ff00c8, 1px 0 #00fff9; }
+            80% { transform: translate(0, 1px); text-shadow: 1px 0 #ff00c8, -1px 0 #00fff9; }
+            100% { transform: translate(0); text-shadow: 1px 0 #ff00c8, -1px 0 #00fff9; }
+        }
+
+        label {
+            display: block;
+            margin: 20px 0 8px;
+            font-size: 17px;
+            color: #00ff9c;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            background: #11111a;
+            border: 1px solid #00ff9c;
+            color: #00ff9c;
+            font-family: inherit;
+            font-size: 16px;
+            outline: none;
+            position: relative;
+            transition: all 0.1s;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #ff00c8;
+            box-shadow: 0 0 8px #ff00c8;
+            animation: input-glitch 2s infinite;
+        }
+
+        @keyframes input-glitch {
+            0% { transform: translate(0); }
+            33% { transform: translate(-1px, 0); }
+            66% { transform: translate(1px, 0); }
+            100% { transform: translate(0); }
+        }
+
+        .opcion {
+            margin: 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            width: auto;
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+
+        textarea {
+            resize: none;
+            height: 100px;
+        }
+
+        button, input[type="submit"] {
+            margin-top: 25px;
+            padding: 12px 25px;
+            background: #00ff9c;
+            color: #000;
+            border: none;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 10px #00ff9c;
+            animation: boton-glitch 5s infinite;
+        }
+
+        @keyframes boton-glitch {
+            0% { box-shadow: 0 0 10px #00ff9c; }
+            50% { box-shadow: 2px 0 15px #ff00c8, -2px 0 15px #00fff9; }
+            100% { box-shadow: 0 0 10px #00ff9c; }
+        }
+
+        /* Líneas de ruido */
+        .ruido {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent 0px,
+                rgba(0, 255, 156, 0.03) 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            animation: ruido 10s linear infinite;
+        }
+
+        @keyframes ruido {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(100px); }
+        }
+    </style>
+</head>
+<body>
+  
+    <div class="ruido"></div>
+
+    <h1>Formulario de registro para ser poder ser parte de la comunidad de una grandiosa comunidad</h1>
+
+    <form action="Resultado.html">
+        <label>Nombre:</label>
+        <input type="text">
+
+        <label>Correo electrónico:</label>
+        <input type="email">
+
+        <label>Contraseña:</label>
+        <input type="password">
+
+        <label>Edad:</label>
+        <input type="number">
+
+        <label>Género:</label>
+        <div class="opcion">
+            <input type="radio" name="genero" id="masc">
+            <label for="masc">Masculino</label>
+        </div>
+        <div class="opcion">
+            <input type="radio" name="genero" id="fem">
+            <label for="fem">Femenino</label>
+        </div>
+        <div class="opcion">
+            <input type="radio" name="genero" id="otro">
+            <label for="otro">Otro</label>
+        </div>
+
+        <label>Intereses:</label>
+        <div class="opcion">
+            <input type="checkbox" id="int1">
+            <label for="int1">Femtanyl</label>
+        </div>
+        <div class="opcion">
+            <input type="checkbox" id="int2">
+            <label for="int2">STOMACH BOOK</label>
+        </div>
+        <div class="opcion">
+            <input type="checkbox" id="int3">
+            <label for="int3">Astrid</label>
+        </div>
+
+        <label>Comentarios:</label>
+        <textarea></textarea>
+
+        <input type="submit" value="Enviar">
+    </form>
+</body>
+</html>

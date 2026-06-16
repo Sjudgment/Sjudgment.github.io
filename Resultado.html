@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Bienvenida Glitch</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0b0b13;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Courier New', monospace;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Capa de ruido de fondo */
+        .ruido {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent 0px,
+                rgba(0, 255, 255, 0.04) 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            animation: desplazarRuido 8s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes desplazarRuido {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(100px); }
+        }
+
+        /* Contenedor principal */
+        .contenedor {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 700px;
+            width: 100%;
+        }
+
+        /* Efecto glitch para los títulos */
+        .glitch {
+            font-size: clamp(28px, 6vw, 48px);
+            font-weight: bold;
+            color: #ffffff;
+            position: relative;
+            margin: 20px 0;
+            text-shadow: 2px 0 #ff00c8, -2px 0 #00fff9;
+            animation: parpadeoGlitch 3s infinite;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 #ff00c8;
+            animation: desfaseIzq 4s infinite linear alternate-reverse;
+        }
+
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 #00fff9;
+            animation: desfaseDer 5s infinite linear alternate-reverse;
+        }
+
+        @keyframes parpadeoGlitch {
+            0% { opacity: 1; transform: translate(0); }
+            92% { opacity: 1; transform: translate(0); }
+            93% { opacity: 0.8; transform: translate(2px, 1px); }
+            94% { opacity: 1; transform: translate(-1px, -1px); }
+            95% { opacity: 0.9; transform: translate(1px, 0); }
+            96% { opacity: 1; transform: translate(0); }
+        }
+
+        @keyframes desfaseIzq {
+            0% { clip-path: inset(47% 0 5% 0); }
+            20% { clip-path: inset(63% 0 11% 0); }
+            40% { clip-path: inset(43% 0 17% 0); }
+            60% { clip-path: inset(25% 0 36% 0); }
+            80% { clip-path: inset(54% 0 27% 0); }
+            100% { clip-path: inset(50% 0 1% 0); }
+        }
+
+        @keyframes desfaseDer {
+            0% { clip-path: inset(65% 0 1% 0); }
+            20% { clip-path: inset(27% 0 35% 0); }
+            40% { clip-path: inset(54% 0 29% 0); }
+            60% { clip-path: inset(18% 0 59% 0); }
+            80% { clip-path: inset(48% 0 13% 0); }
+            100% { clip-path: inset(36% 0 45% 0); }
+        }
+
+        /* Espacio para la imagen */
+        .espacio-imagen {
+            margin: 40px auto;
+            width: 100%;
+            max-width: 500px;
+            height: 300px;
+            border: 2px solid #00fff9;
+            background-color: #12121f;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #00ff9c;
+            font-size: 18px;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+            position: relative;
+            animation: bordeGlitch 6s infinite;
+            overflow: hidden;
+        }
+
+        @keyframes bordeGlitch {
+            0% { border-color: #00fff9; box-shadow: 0 0 15px rgba(0, 255, 255, 0.3); }
+            50% { border-color: #ff00c8; box-shadow: 0 0 20px rgba(255, 0, 200, 0.4); }
+            100% { border-color: #00fff9; box-shadow: 0 0 15px rgba(0, 255, 255, 0.3); }
+        }
+
+        /* Para agregar tu imagen, descomenta esta línea y pon la ruta */
+        .espacio-imagen img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Texto inferior */
+        .mensaje {
+            font-size: clamp(18px, 3vw, 24px);
+            color: #00ff9c;
+            line-height: 1.6;
+            text-shadow: 0 0 5px rgba(0, 255, 156, 0.6);
+            animation: textoSuave 4s infinite alternate;
+        }
+
+        @keyframes textoSuave {
+            0% { transform: translate(0); }
+            100% { transform: translate(1px, 0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="ruido"></div>
+
+    <div class="contenedor">
+        <h1 class="glitch" data-text>¡FELICIDADES!</h1>
+        <h2 class="glitch" data-text>BIENVENIDO A ESTA COMUNIDAD</h2>
+
+        <!-- Espacio para tu imagen -->
+        <div class="espacio-imagen">
+            <!-- Cambia "tu-imagen.jpg" por la ruta de tu archivo -->
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTX6yZ1rA2hfij5rshBgKfWE0l2A6RMQ5ZNbsCiMvpYWg&s=10" alt="Imagen de bienvenida">
+            <!-- Si no tienes imagen, borra la línea de arriba y deja este texto:
+            Aquí irá tu imagen -->
+        </div>
+
+        <p class="mensaje">Estamos muy contentos de que formes parte de este espacio. ¡Disfruta y comparte!</p>
+    </div>
+</body>
+</html>

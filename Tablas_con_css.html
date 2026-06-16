@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Tablas Glitch</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+
+        body {
+            background-color: #0a0f0d;
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #ffffff;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* 🎭 Contenedor de stickers: AL FRENTE */
+        .stickers {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10; /* Quedan por encima de todo */
+            pointer-events: none; /* No bloquean clics */
+        }
+
+        /* Estilo de cada sticker: tamaño y transparencia */
+        .sticker {
+            position: absolute;
+            width: 90px; /* Tamaño pequeño para no estorbar */
+            height: auto;
+            opacity: 0.6; /* Transparencia para ver lo de atrás */
+            transition: all 0.3s ease;
+            transform: rotate(-5deg);
+        }
+
+        /* Efecto al pasar el dedo */
+        .sticker:hover {
+            opacity: 0.9;
+            transform: scale(1.1) rotate(0deg);
+        }
+
+        /* 📄 Contenido principal: detrás de los stickers */
+        .contenido {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* --- ESTILOS DE LA TABLA Y TEXTO --- */
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .glitch {
+            position: relative;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 #ff003c;
+            animation: glitch-anim 3s infinite linear alternate-reverse;
+        }
+
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 #00ff44;
+            animation: glitch-anim2 4s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip-path: inset(47% 0 5% 0); }
+            20% { clip-path: inset(63% 0 11% 0); }
+            40% { clip-path: inset(43% 0 13% 0); }
+            60% { clip-path: inset(25% 0 36% 0); }
+            80% { clip-path: inset(58% 0 3% 0); }
+            100% { clip-path: inset(69% 0 1% 0); }
+        }
+
+        @keyframes glitch-anim2 {
+            0% { clip-path: inset(65% 0 2% 0); }
+            20% { clip-path: inset(27% 0 38% 0); }
+            40% { clip-path: inset(54% 0 11% 0); }
+            60% { clip-path: inset(16% 0 55% 0); }
+            80% { clip-path: inset(49% 0 13% 0); }
+            100% { clip-path: inset(59% 0 3% 0); }
+        }
+
+        h2, h3 {
+            text-align: center;
+            color: #00ff44;
+            margin: 50px 0 25px;
+            font-size: 1.7rem;
+            text-shadow: 0 0 10px #00ff44, 0 0 20px rgba(0, 255, 68, 0.5);
+        }
+
+        table {
+            margin: 0 auto 50px;
+            border-collapse: collapse;
+            width: 90%;
+            max-width: 850px;
+            background-color: rgba(10, 15, 13, 0.92);
+            border: 1px solid #ff003c;
+            box-shadow: 0 0 20px rgba(255, 0, 60, 0.5),
+                        0 0 35px rgba(0, 255, 68, 0.25);
+        }
+
+        th {
+            background: linear-gradient(90deg, #ff003c, #009922);
+            color: #ffffff;
+            padding: 18px 12px;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 0 5px #000000;
+        }
+
+        td {
+            padding: 20px 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 0, 60, 0.3);
+            font-size: 1rem;
+            color: #ffffff;
+            transition: all 0.2s ease;
+        }
+
+        tr:nth-child(even) td {
+            background-color: rgba(0, 255, 68, 0.05);
+        }
+
+        tr:hover td {
+            background-color: rgba(255, 0, 60, 0.1);
+            text-shadow: 0 0 8px #ff003c;
+            transform: translateX(1px);
+        }
+
+        .glitch-img {
+            position: relative;
+            width: 140px;
+            height: auto;
+            display: inline-block;
+            border: 2px solid #ff003c;
+            box-shadow: 0 0 15px #ff003c, 0 0 25px rgba(0, 255, 68, 0.4);
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        .glitch-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .glitch-img::before,
+        .glitch-img::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            pointer-events: none;
+        }
+
+        .glitch-img::before {
+            left: 2px;
+            animation: glitch-img 2.5s infinite linear alternate-reverse;
+            mix-blend-mode: screen;
+            opacity: 0.7;
+            box-shadow: inset 0 0 10px #ff003c;
+        }
+
+        .glitch-img::after {
+            left: -2px;
+            animation: glitch-img 3.5s infinite linear alternate-reverse;
+            mix-blend-mode: screen;
+            opacity: 0.7;
+            box-shadow: inset 0 0 10px #00ff44;
+        }
+
+        @keyframes glitch-img {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 1px); }
+            40% { transform: translate(-1px, -1px); }
+            60% { transform: translate(2px, 1px); }
+            80% { transform: translate(1px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 🎭 STICKERS: AL FRENTE, ubicados en bordes -->
+<div class="stickers">
+    <!-- Esquinas y bordes para no tapar la tabla -->
+    <img class="sticker" src="https://img1.picmix.com/output/pic/thumb/9/6/3/4/13504369_a48da.gif" alt="Sticker" style="top: 4%; left: 2%;">
+    <img class="sticker" src="https://img1.picmix.com/output/pic/normal/1/2/1/9/12579121_45739.gif" alt="Sticker" style="top: 6%; right: 2%;">
+    <img class="sticker" src="https://media.tenor.com/qfFFR-aGP4gAAAAM/stomach-book-emo.gif" alt="Sticker" style="top: 35%; left: 1%;">
+    <img class="sticker" src="https://img1.picmix.com/output/pic/normal/6/2/7/2/12202726_9e293.gif" alt="Sticker" style="top: 55%; right: 1%;">
+    <img class="sticker" src="https://img1.picmix.com/output/pic/normal/7/6/3/8/12568367_24c5e.gif" alt="Sticker" style="bottom: 5%; left: 3%;">
+    <img class="sticker" src="https://img1.picmix.com/output/pic/normal/9/1/0/3/12753019_bb976.gif" alt="Sticker" style="bottom: 3%; right: 3%;">
+    <img class="sticker" src="https://media.tenor.com/ISTOtET0Os0AAAAM/femtanyl-meme-animation-dance.gif" alt="Sticker" style="bottom: 25%; left: 2%;">
+    <img class="sticker" src="https://media.tenor.com/1kl6VQZBxkkAAAAM/fem-femtanyl.gif" alt="Sticker" style="top: 20%; right: 3%;">
+</div>
+
+<!-- 📄 CONTENIDO PRINCIPAL -->
+<div class="contenido">
+    <h1 class="glitch" data-text="Datos de Artistas">Datos de Artistas</h1>
+
+    <h2 class="glitch" data-text="Estadísticas">Estadísticas</h2>
+    <table>
+        <tr>
+            <th>Artista</th>
+            <th>Suscriptores en Youtube</th>
+            <th>Oyentes mensuales en Spotify</th>
+        </tr>
+        <tr>
+            <td>Femtanyl</td>
+            <td>325,000</td>
+            <td>801,919</td>
+        </tr>
+        <tr>
+            <td>STOMACH BOOK</td>
+            <td>285,000</td>
+            <td>814,981</td>
+        </tr>
+        <tr>
+            <td>Astrid</td>
+            <td>11,900</td>
+            <td>130,200</td>
+        </tr>
+    </table>
+
+    <h3 class="glitch" data-text="Enlaces y Perfiles">Enlaces y Perfiles</h3>
+    <table>
+        <tr>
+            <th>Femtanyl</th>
+            <td>
+                <a href="https://youtube.com/@femtanyl03?si=Uyz2Cvq-DxaDvIvS" target="_blank">
+                    <div class="glitch-img">
+                        <img src="https://yt3.googleusercontent.com/q3xZvmEd-H0qrUsmHLaYlIu7w1tX8PhtefvAUYoFRrc4b01qUx0AzJYGrQxn0LnM0FPo2eItQw=s900-c-k-c0x00ffffff-no-rj" alt="Femtanyl">
+                    </div>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <th>STOMACH BOOK</th>
+            <td>
+                <a href="https://youtube.com/@stomachbook7270?si=TepeH2Zw4pDKmEo9" target="_blank">
+                    <div class="glitch-img">
+                        <img src="https://yt3.googleusercontent.com/fsXDTxd-3MnORWjp6l1cdY2H7_UDftvwBz28Y-fGo2lxMmdxKZXIZNBwzhOoRWbfOhr8hX-T=s900-c-k-c0x00ffffff-no-rj" alt="STOMACH BOOK">
+                    </div>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <th>Astrid</th>
+            <td>
+                <a href="https://youtube.com/@omfg_astrid?si=0hSbf6Qk2hwFOEuE" target="_blank">
+                    <div class="glitch-img">
+                        <img src="https://linktr.ee/og/image/omfg_astrid.jpg" alt="Astrid">
+                    </div>
+                </a>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<a href="index" target="_blank">Volver a la pawina de inicio</a>
+</body>
+</html>
+
